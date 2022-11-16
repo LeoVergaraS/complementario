@@ -19,8 +19,8 @@ public class Atraso {
 
     private int mes;
     private int anio;
-    private int atraso_10min;
-    private int atraso_25min;
-    private int atraso_45min;
-    private String rut_empleado;
+    private int atraso10min;
+    private int atraso25min;
+    private int atraso45min;
+    private String rutEmpleado;
 }

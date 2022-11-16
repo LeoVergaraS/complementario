@@ -38,10 +38,13 @@ public class AtrasoController {
         return ResponseEntity.ok(atraso);
     }
 
-    @PostMapping
-    public ResponseEntity<Atraso> create(Atraso atraso){
-        Atraso atrasoNuevo = atrasoService.crearAtraso(atraso);
-        return ResponseEntity.ok(atrasoNuevo);
+    @GetMapping("/verificar/{mes}/{anio}/{rut}")
+    public ResponseEntity<List<Integer>> verificarAtrasos(@PathVariable("mes") int mes, @PathVariable("anio") int anio, @PathVariable("rut") String rut){
+        List<Integer> tiempos = atrasoService.verificarSiTieneAtrasos(mes, anio, rut);
+        if(tiempos.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(tiempos);
     }
 
     @PostMapping("/file")

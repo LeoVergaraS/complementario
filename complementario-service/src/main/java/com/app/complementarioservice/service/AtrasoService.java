@@ -1,5 +1,6 @@
 package com.app.complementarioservice.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,19 @@ public class AtrasoService {
         return atrasoRepository.findById(id).orElse(null);
     }
 
-    public Atraso crearAtraso(Atraso atraso){
-        Atraso atrasoNuevo = atrasoRepository.save(atraso);
-        return atrasoNuevo;
+    public List<Integer> verificarSiTieneAtrasos(int mes, int anio, String rut){
+        List<Integer> tiempos = new ArrayList<>();
+        Atraso atraso = atrasoRepository.findAtrasoEmpleadoByFecha(rut, mes, anio);
+        if(atraso == null){
+            tiempos.add(0);
+            tiempos.add(0);
+            tiempos.add(0);
+            return tiempos;
+        }
+        tiempos.add(atraso.getAtraso10min());
+        tiempos.add(atraso.getAtraso25min());
+        tiempos.add(atraso.getAtraso45min());
+        return tiempos;
     }
 
     public boolean guardarDelArchivo(){
