@@ -4,11 +4,15 @@ spring:
   cloud:
     config:
       enabled: true
+      fail-fast: true
+      retry:
+        maxAttempts: 200
+        maxInterval: 10000
       uri: http://localhost:8081
   datasource:
-    url: jdbc:mysql://localhost:3306/complementario
-    username: root
-    password: 12345678
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
